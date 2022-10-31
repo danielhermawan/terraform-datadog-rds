@@ -273,6 +273,17 @@ resource "datadog_dashboard" "rds" {
       }
     }
   }
+
+  widget {
+    timeseries_definition {
+      title = "CPU Credit Balance"
+
+      request {
+        q            = "avg:aws.rds.cpucredit_balance{$rds_name,$environment} by {hostname}"
+        display_type = "line"
+      }
+    }
+  }
 }
 
 module "monitor_cpu_usage" {
